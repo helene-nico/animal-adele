@@ -10,7 +10,7 @@
   <!-- Flux vidéo de la caméra -->
   <video id="camera" autoplay playsinline muted></video>
 
-  <!-- Menu de sélection -->
+  <!-- Menu de sélection et actions -->
   <div id="ui-container">
     <h1>Choisis ton compagnon</h1>
     <div class="pet-buttons">
@@ -18,10 +18,16 @@
       <button class="btn" data-pet="🐱">Chat</button>
       <button class="btn" data-pet="🐰">Lapin</button>
     </div>
+    <!-- Nouveau bouton Nourrir (caché au début) -->
+    <button id="feed-btn" class="btn hidden" style="background-color: #10b981; color: white; margin-top: 10px;">
+      🍽️ Nourrir
+    </button>
   </div>
 
-  <!-- Élément de l'animal -->
+  <!-- Éléments du jeu -->
   <div id="pet" class="hidden">🐶</div>
+  <div id="food" class="hidden"></div>
+  <div id="reaction" class="hidden">❤️</div>
 
   <script src="app.js"></script>
 </body>
