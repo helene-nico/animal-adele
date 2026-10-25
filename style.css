@@ -77,12 +77,45 @@ body, html {
   cursor: grab;
   transform: translate(-50%, -50%);
   touch-action: none;
+  transition: transform 0.2s;
 }
 
 #pet:active {
   cursor: grabbing;
 }
 
+/* NOUVEAU : Styles pour la nourriture et les animations */
+#food {
+  position: absolute;
+  z-index: 4;
+  font-size: 60px;
+  transform: translate(-50%, -50%);
+}
+
+#reaction {
+  position: absolute;
+  z-index: 6;
+  font-size: 50px;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+
 .hidden {
-  display: none;
+  display: none !important;
+}
+
+/* Animation de l'animal qui mange */
+@keyframes eat {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.15); }
+}
+.eating {
+  animation: eat 0.4s ease-in-out infinite;
+}
+
+/* Animation du coeur qui s'envole */
+@keyframes floatUp {
+  0% { opacity: 1; transform: translate(-50%, 0px) scale(0.5); }
+  50% { transform: translate(-50%, -40px) scale(1.2); }
+  100% { opacity: 0; transform: translate(-50%, -80px) scale(1); }
 }
