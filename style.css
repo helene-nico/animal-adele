@@ -84,7 +84,6 @@ body, html {
   cursor: grabbing;
 }
 
-/* NOUVEAU : Styles pour la nourriture et les animations */
 #food {
   position: absolute;
   z-index: 4;
@@ -118,4 +117,44 @@ body, html {
   0% { opacity: 1; transform: translate(-50%, 0px) scale(0.5); }
   50% { transform: translate(-50%, -40px) scale(1.2); }
   100% { opacity: 0; transform: translate(-50%, -80px) scale(1); }
+}
+
+/* Bouton Appareil Photo */
+#photo-btn {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 35px;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background-color: white;
+  border: 4px solid #d1d5db;
+  cursor: pointer;
+  z-index: 20;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s, background-color 0.2s;
+}
+
+#photo-btn:active {
+  transform: translateX(-50%) scale(0.9);
+  background-color: #f3f4f6;
+}
+
+/* Effet de flash */
+#flash {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 100;
+  opacity: 1;
+  transition: opacity 0.2s ease-out;
+  pointer-events: none;
 }
