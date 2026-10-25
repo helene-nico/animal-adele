@@ -28,8 +28,8 @@ buttons.forEach(button => {
 
     pet.textContent = button.dataset.pet;
     pet.classList.remove('hidden');
-    feedBtn.classList.remove('hidden');
-    photoBtn.classList.remove('hidden'); // Afficher l'appareil photo
+    feedBtn.classList.remove('hidden'); // Affiche le bouton Nourrir
+    photoBtn.classList.remove('hidden'); // Affiche l'appareil photo
 
     if (!pet.style.left) {
       pet.style.left = '50%';
@@ -57,46 +57,54 @@ pet.addEventListener('touchstart', onStart, { passive: true });
 window.addEventListener('touchmove', onMove, { passive: true });
 window.addEventListener('touchend', onEnd);
 
-// 4. Donner à manger
+// 4. Donner à manger (CORRIGÉ POUR TOUS LES ÉCRANS)
 feedBtn.addEventListener('click', () => {
   const currentPet = pet.textContent;
   if (currentPet === '🐶') food.textContent = '🦴';
   else if (currentPet === '🐱') food.textContent = '🐟';
   else if (currentPet === '🐰') food.textContent = '🥕';
 
-  food.style.left = pet.style.left;
-  food.style.top = `calc(${pet.style.top} + 50px)`;
+  // Calculer la position exacte de l'animal en pixels
+  const rect = pet.getBoundingClientRect();
+  const petX = rect.left + (rect.width / 2);
+  const petY = rect.top + (rect.height / 2);
+
+  // Placer la nourriture exactement en dessous
+  food.style.left = `${petX}px`;
+  food.style.top = `${petY + 60}px`;
   food.classList.remove('hidden');
+  
+  // Lancer l'animation
   pet.classList.add('eating');
 
   setTimeout(() => {
     food.classList.add('hidden');
     pet.classList.remove('eating');
     
-    reaction.style.left = pet.style.left;
-    reaction.style.top = `calc(${pet.style.top} - 50px)`;
+    // Placer le coeur exactement au-dessus
+    reaction.style.left = `${petX}px`;
+    reaction.style.top = `${petY - 60}px`;
     reaction.classList.remove('hidden');
+    
+    // Relancer l'animation du coeur
     reaction.style.animation = 'none';
     reaction.offsetHeight; 
     reaction.style.animation = 'floatUp 1.2s ease-out forwards';
   }, 1500);
 });
 
-// 5. NOUVEAU : Prendre une photo
+// 5. Prendre une photo
 photoBtn.addEventListener('click', () => {
-  // Effet de flash
   flash.classList.remove('hidden');
   flash.style.opacity = '1';
   setTimeout(() => { flash.style.opacity = '0'; }, 50);
   setTimeout(() => { flash.classList.add('hidden'); }, 250);
 
-  // Créer un canevas invisible de la taille de l'écran
   const canvas = document.createElement('canvas');
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
   const ctx = canvas.getContext('2d');
 
-  // Dessiner la vidéo (recadrée pour correspondre à l'écran)
   const videoRatio = video.videoWidth / video.videoHeight;
   const screenRatio = canvas.width / canvas.height;
   let sWidth = video.videoWidth, sHeight = video.videoHeight, sx = 0, sy = 0;
@@ -110,7 +118,6 @@ photoBtn.addEventListener('click', () => {
   }
   ctx.drawImage(video, sx, sy, sWidth, sHeight, 0, 0, canvas.width, canvas.height);
 
-  // Fonction pour dessiner les emojis au bon endroit
   function drawEmoji(element, fontSize) {
     if (element.classList.contains('hidden') || element.style.opacity === '0') return;
     const rect = element.getBoundingClientRect();
@@ -120,12 +127,10 @@ photoBtn.addEventListener('click', () => {
     ctx.fillText(element.textContent, rect.left + rect.width / 2, rect.top + rect.height / 2 + (fontSize * 0.1));
   }
 
-  // Dessiner l'animal, la nourriture et la réaction
   drawEmoji(pet, 110);
   drawEmoji(food, 60);
   drawEmoji(reaction, 50);
 
-  // Télécharger la photo
   const link = document.createElement('a');
   link.download = 'mon-animal-virtuel.png';
   link.href = canvas.toDataURL('image/png');
