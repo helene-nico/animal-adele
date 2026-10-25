@@ -7,10 +7,13 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Flux vidéo de la caméra -->
+  <!-- Flux vidéo -->
   <video id="camera" autoplay playsinline muted></video>
 
-  <!-- Menu de sélection et actions -->
+  <!-- Effet de Flash pour la photo -->
+  <div id="flash" class="hidden"></div>
+
+  <!-- Menu principal -->
   <div id="ui-container">
     <h1>Choisis ton compagnon</h1>
     <div class="pet-buttons">
@@ -18,7 +21,6 @@
       <button class="btn" data-pet="🐱">Chat</button>
       <button class="btn" data-pet="🐰">Lapin</button>
     </div>
-    <!-- Nouveau bouton Nourrir (caché au début) -->
     <button id="feed-btn" class="btn hidden" style="background-color: #10b981; color: white; margin-top: 10px;">
       🍽️ Nourrir
     </button>
@@ -28,6 +30,9 @@
   <div id="pet" class="hidden">🐶</div>
   <div id="food" class="hidden"></div>
   <div id="reaction" class="hidden">❤️</div>
+
+  <!-- NOUVEAU : Bouton Appareil Photo -->
+  <button id="photo-btn" class="hidden">📸</button>
 
   <script src="app.js"></script>
 </body>
