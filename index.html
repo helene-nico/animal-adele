@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Mon Animal Virtuel</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Flux vidéo de la caméra -->
+  <video id="camera" autoplay playsinline muted></video>
+
+  <!-- Menu de sélection -->
+  <div id="ui-container">
+    <h1>Choisis ton compagnon</h1>
+    <div class="pet-buttons">
+      <button class="btn" data-pet="🐶">Chien</button>
+      <button class="btn" data-pet="🐱">Chat</button>
+      <button class="btn" data-pet="🐰">Lapin</button>
+    </div>
+  </div>
+
+  <!-- Élément de l'animal -->
+  <div id="pet" class="hidden">🐶</div>
+
+  <script src="app.js"></script>
+</body>
+</html>
